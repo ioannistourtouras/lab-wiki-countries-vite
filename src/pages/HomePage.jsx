@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { v4 as randomId } from "uuid";
+import { Link } from "react-router-dom";
 
 function HomePage() {
   const [countries, setCountries] = useState([]);
@@ -19,13 +20,16 @@ function HomePage() {
   }, []);
 
   return (
-    <div>
-      <h2>WikiCountries: Your Guide to the World</h2>
-      <div>
+    <div className="container" style= {{maxHeight: "90vh", overflow: "scroll"}}>
+      <h2 style={{fontSize: "24px"}}>WikiCountries: Your Guide to the World</h2>
+      <div className="list-group">
         {countries.map((country) => {
           return (
             <div key={randomId()}>
-              <p>{country.name.official}</p>
+              <Link to={`/${country.alpha3Code}`} className="list-group-item list-group-item-action" >
+                <img src={`https://flagpedia.net/data/flags/icon/72x54/${country.alpha2Code.toLowerCase()}.png`} alt="flag" className="flag"></img>
+                <p>{country.name.common}</p>
+              </Link>
             </div>
           );
         })}
