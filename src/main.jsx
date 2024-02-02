@@ -4,8 +4,12 @@ import App from "./App.jsx";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.css"
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+import {BrowserRouter as Router} from "react-router-dom"
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+root.render(
+  <Router>
     <App />
-  </React.StrictMode>
-);
+  </Router>
+)
