@@ -1,10 +1,42 @@
-import React from 'react'
+import React from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { v4 as randomId } from "uuid";
 
 function HomePage() {
+  const [countries, setCountries] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("https://ih-countries-api.herokuapp.com/countries")
+      .then((country) => {
+        console.log(country.data);
+        setCountries(country.data);
+      })
+      .catch((err) => {
+        console.log(err, "the error");
+      });
+  }, []);
+
   return (
     <div>
-        <div>WikiCountries: Your Guide to the World</div>
-        <div className="container" style= {{maxHeight: "90vh", overflow: "scroll"}}>
+      <h2>WikiCountries: Your Guide to the World</h2>
+      <div>
+        {countries.map((country) => {
+          return (
+            <div key={randomId()}>
+              <p>{country.name.official}</p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+export default HomePage;
+
+/*<div className="container" style= {{maxHeight: "90vh", overflow: "scroll"}}>
         <h1 style={{fontSize: "24px"}}>WikiCountries: Your Guide to the World</h1>
 
         <div className="list-group">
@@ -39,9 +71,4 @@ function HomePage() {
           <a className="list-group-item list-group-item-action" href="/ZWE"
             >🇿🇼 Zimbabwe</a>
         </div>
-        </div>
-    </div>
-  )
-}
-
-export default HomePage
+        </div>*/
